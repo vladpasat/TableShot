@@ -2,6 +2,8 @@
 {
     public partial class App : Application
     {
+        public static IReadOnlyList<string> UserGroups { get; set; }
+
         public App()
         {
             InitializeComponent();

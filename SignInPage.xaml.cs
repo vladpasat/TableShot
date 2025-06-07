@@ -5,6 +5,8 @@ using Amazon.CognitoIdentityProvider;
 using Amazon.Extensions.CognitoAuthentication;
 using Amazon.Runtime;
 using Microsoft.Maui.ApplicationModel;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 
 namespace TableShot
 {
@@ -50,14 +52,23 @@ namespace TableShot
                 {
                     Password = password
                 };
-                AuthFlowResponse authResponse = await user.StartWithSrpAuthAsync(authRequest).ConfigureAwait(false);
+                AuthFlowResponse authResponse = await user.StartWithSrpAuthAsync(authRequest);
 
                 if (authResponse.AuthenticationResult != null)
                 {
                     // Successful login
                     // You can retrieve tokens: authResponse.AuthenticationResult.IdToken, AccessToken, RefreshToken
+                    var idToken = authResponse.AuthenticationResult.IdToken;
+                    var handler = new JwtSecurityTokenHandler();
+                    var jwt = handler.ReadJwtToken(idToken);
+
+                    App.UserGroups = jwt.Claims
+                        .Where(c => c.Type == "cognito:groups")
+                        .Select(c => c.Value)
+                        .ToList();
+
                     await MainThread.InvokeOnMainThreadAsync(async () =>
-                        await Shell.Current.GoToAsync("//MainPage")
+                        await Shell.Current.GoToAsync(nameof(MainPage))
                     );
                 }
                 else
@@ -91,7 +102,7 @@ namespace TableShot
         private async void OnSignUpTapped(object sender, EventArgs e)
         {
             // TODO: Navigate to Sign Up page, implement registration with Cognito
-            await Shell.Current.GoToAsync("SignUpPage");
+            await Shell.Current.GoToAsync(nameof(SignUpPage));
         }
     }
 }

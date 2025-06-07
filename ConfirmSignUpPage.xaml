@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TableShot.ConfirmSignUpPage"
+    Title="Confirm Sign Up">
+
+    <VerticalStackLayout
+      Padding="30"
+      Spacing="20"
+      VerticalOptions="Center">
+
+        <!-- Display the email (read-only) -->
+        <Entry
+        x:Name="EmailEntry"
+        IsReadOnly="True"
+        Placeholder="Email" />
+
+        <!-- Where user types the code they received -->
+        <Entry
+        x:Name="CodeEntry"
+        Placeholder="Verification code"
+        Keyboard="Numeric" />
+
+        <!-- Button to confirm the account -->
+        <Button
+        x:Name="ConfirmButton"
+        Text="Confirm Account"
+        Clicked="OnConfirmClicked" />
+
+        <!-- Shows while we wait for Cognito -->
+        <ActivityIndicator
+        x:Name="LoadingIndicator"
+        IsVisible="False"
+        IsRunning="False"
+        VerticalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentPage>
