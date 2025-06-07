@@ -3,13 +3,76 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TableShot.SignInPage"
              Title="Sign In">
-  <VerticalStackLayout Padding="30" Spacing="15">
-    <Label Text="Sign In" FontAttributes="Bold" FontSize="24" HorizontalOptions="Center" />
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
 
-    <Entry x:Name="UsernameEntry" Placeholder="Username" Keyboard="Email" />
+            <!-- App Logo or Title -->
+            <Image Source="app_logo.png"
+                   HeightRequest="100"
+                   HorizontalOptions="Center" />
 
-    <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
+            <!-- Welcome Text -->
+            <Label Text="Welcome Back!"
+                   FontSize="24"
+                   HorizontalOptions="Center" />
 
-    <Button Text="Sign In" Clicked="OnSignInClicked" />
-  </VerticalStackLayout>
+            <!-- Email Entry -->
+            <Entry x:Name="EmailEntry"
+                   Placeholder="Email"
+                   Keyboard="Email"
+                   ClearButtonVisibility="WhileEditing" />
+
+            <!-- Password Entry -->
+            <Entry x:Name="PasswordEntry"
+                   Placeholder="Password"
+                   IsPassword="True"
+                   ClearButtonVisibility="WhileEditing" />
+
+            <!-- Activity Indicator during login -->
+            <ActivityIndicator x:Name="LoadingIndicator"
+                               IsVisible="False"
+                               IsRunning="False"
+                               VerticalOptions="Center" />
+
+            <!-- Sign In Button -->
+            <Button Text="Sign In"
+                    x:Name="SignInButton"
+                    Clicked="OnSignInClicked"
+                    CornerRadius="8"
+                    HeightRequest="50" />
+
+            <!-- Forgot Password and Sign Up Links -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Forgot " />
+                            <Span Text="Password?"
+                                  TextColor="Blue"
+                                  TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnForgotPasswordTapped" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Don't have an account? " />
+                            <Span Text="Sign Up"
+                                  TextColor="Blue"
+                                  TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnSignUpTapped" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
