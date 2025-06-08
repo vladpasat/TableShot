@@ -9,6 +9,8 @@
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
             Routing.RegisterRoute(nameof(ConfirmSignUpPage), typeof(ConfirmSignUpPage));
             Routing.RegisterRoute(nameof(SignInPage), typeof(SignInPage));
+            Routing.RegisterRoute(nameof(TableEditPage), typeof(TableEditPage));
+            Routing.RegisterRoute(nameof(TableViewPage), typeof(TableViewPage));
 
         }
     }

@@ -7,7 +7,7 @@ using Amazon.Runtime;
 using Microsoft.Maui.ApplicationModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-
+using TableShot.ViewModels;
 namespace TableShot
 {
     public partial class SignInPage : ContentPage
@@ -62,14 +62,18 @@ namespace TableShot
                     var handler = new JwtSecurityTokenHandler();
                     var jwt = handler.ReadJwtToken(idToken);
 
+                    App.IdToken = idToken;
+
                     App.UserGroups = jwt.Claims
                         .Where(c => c.Type == "cognito:groups")
                         .Select(c => c.Value)
                         .ToList();
 
-                    await MainThread.InvokeOnMainThreadAsync(async () =>
-                        await Shell.Current.GoToAsync(nameof(MainPage))
-                    );
+                    await App.TableVm.InitAsync(idToken);
+                    await Shell.Current.GoToAsync(nameof(MainPage));
+                    //await MainThread.InvokeOnMainThreadAsync(async () =>
+                    //    await Shell.Current.GoToAsync(nameof(MainPage))
+                    //);
                 }
                 else
                 {

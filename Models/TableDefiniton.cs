@@ -5,19 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2.DataModel;
 
-
 namespace TableShot.Models
 {
-    [DynamoDBTable("TableItems")]
-    public class TableItems
+    [DynamoDBTable("TableDefinitions")]
+    public class TableDefinition
     {
         [DynamoDBHashKey]
-        public string Id { get; set; }
+        public string TableId { get; set; }
 
         [DynamoDBProperty]
-        public string Name { get; set; }
+        public int AdditionalColumns { get; set; }
 
         [DynamoDBProperty]
-        public int Quantity { get; set; }
+        public List<string> ColumnNames { get; set; }
     }
 }

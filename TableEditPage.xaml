@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TableShot.TableEditPage"
+             Title="TableEditPage">
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <ScrollView Orientation="Horizontal">
+            <Grid x:Name="TableGrid" />
+        </ScrollView>
+
+        <!-- only admins add rows -->
+        <Button
+      x:Name="AddRowButton"
+      Text="Add Row"
+      Clicked="OnAddRowClicked"
+      IsVisible="False" />
+    </VerticalStackLayout>
+</ContentPage>
