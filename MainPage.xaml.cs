@@ -4,6 +4,7 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using TableShot.Models;
 using TableShot.ViewModels;
+using TableShot;
 
 
 namespace TableShot
@@ -90,7 +91,7 @@ namespace TableShot
                 return;
 
             await Shell.Current.GoToAsync(
-                $"///{nameof(TableEditPage)}?tableId={Uri.EscapeDataString(choice)}");
+                $"{nameof(TableEditPage)}?tableId={Uri.EscapeDataString(choice)}");
         }
 
         private async void ButtonViewTable_Clicked(object sender, EventArgs e)
@@ -114,9 +115,10 @@ namespace TableShot
             if (string.IsNullOrEmpty(choice) || choice == "Cancel")
                 return;
 
+
             // 3) Navigate to the TableViewPage, passing the tableId
             await Shell.Current.GoToAsync(
-                $"///{nameof(TableViewPage)}?tableId={Uri.EscapeDataString(choice)}");
+                $"{nameof(TableViewPage)}?tableId={Uri.EscapeDataString(choice)}");
         }
     }
 

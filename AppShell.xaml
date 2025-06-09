@@ -19,12 +19,13 @@
         Title="Edit Table"
         Route="TableEditPage"
         ContentTemplate="{DataTemplate local:TableEditPage}" />
-    <ShellContent
-        Title="View Table"
-        Route="TableEditPage"
-        ContentTemplate="{DataTemplate local:TableViewPage}" />
 
-    
+        <ShellContent
+      Route="TableViewPage"
+      ContentTemplate="{DataTemplate local:TableViewPage}" />
+
+
+
 
     <ShellContent Title="Confirm Sign Up"
                 Route="ConfirmSignUpPage"
