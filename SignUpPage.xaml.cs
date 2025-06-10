@@ -10,7 +10,6 @@ namespace TableShot
 {
     public partial class SignUpPage : ContentPage
     {
-        // TODO: Move these to secure config or Constants
         private const string PoolId = "eu-north-1_0ELf78r9L";
         private const string ClientId = "1r3poi7410ffq6vd741drf22gg";
         private static readonly RegionEndpoint CognitoRegion = RegionEndpoint.EUNorth1;

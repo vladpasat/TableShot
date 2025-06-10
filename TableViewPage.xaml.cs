@@ -23,6 +23,25 @@ namespace TableShot
         {
             InitializeComponent();
         }
+        View CreateCell(string text, bool isHeader = false)
+        {
+            return new Frame
+            {
+                Padding = new Thickness(6, 4),
+                Margin = new Thickness(2),
+                BorderColor = Colors.LightGray,
+                BackgroundColor = isHeader ? Colors.LightGray : Colors.Transparent,
+                Content = new Label
+                {
+                    Text = text,
+                    FontAttributes = isHeader ? FontAttributes.Bold : FontAttributes.None,
+                    LineBreakMode = LineBreakMode.TailTruncation,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center
+                },
+                HasShadow = false
+            };
+        }
 
         protected override async void OnAppearing()
         {
@@ -61,17 +80,13 @@ namespace TableShot
             TableGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
             // Add header labels
-            TableGrid.Add(new Label { Text = "Id", FontAttributes = FontAttributes.Bold }, 0, 0);
-            TableGrid.Add(new Label { Text = "Name", FontAttributes = FontAttributes.Bold }, 1, 0);
+            TableGrid.Add(CreateCell("Id", isHeader: true), 0, 0);
+            TableGrid.Add(CreateCell("Name", isHeader: true), 1, 0);
             for (int c = 0; c < _columnNames.Count; c++)
             {
-                TableGrid.Add(
-                    new Label { Text = _columnNames[c], FontAttributes = FontAttributes.Bold },
-                    2 + c, 0);
+                TableGrid.Add(CreateCell(_columnNames[c], isHeader: true), 2 + c, 0);
             }
-            TableGrid.Add(
-                new Label { Text = "Final Score", FontAttributes = FontAttributes.Bold },
-                2 + _columnNames.Count, 0);
+            TableGrid.Add(CreateCell("Final Score", isHeader: true), 2 + _columnNames.Count, 0);
         }
 
         void RenderRow(int index, TableRow row)
@@ -79,26 +94,19 @@ namespace TableShot
             int gridRow = index + 1;
             TableGrid.RowDefinitions.Add(new RowDefinition());
 
-            // Id
-            TableGrid.Add(new Label { Text = row.RowId }, 0, gridRow);
+            TableGrid.Add(CreateCell(row.RowId), 0, gridRow);
+            TableGrid.Add(CreateCell(row.Name), 1, gridRow);
 
-            // Name
-            TableGrid.Add(new Label { Text = row.Name }, 1, gridRow);
-
-            // Dynamic columns
             for (int c = 0; c < _columnNames.Count; c++)
             {
                 var key = _columnNames[c];
                 var value = row.Values?.GetValueOrDefault(key) ?? 0d;
-                TableGrid.Add(new Label { Text = value.ToString() }, 2 + c, gridRow);
+                TableGrid.Add(CreateCell(value.ToString()), 2 + c, gridRow);
             }
 
             // Final Score = sum of all dynamic values
             double final = row.Values?.Values.Sum() ?? 0d;
-            TableGrid.Add(
-                new Label { Text = final.ToString() },
-                2 + _columnNames.Count,
-                gridRow);
+            TableGrid.Add(CreateCell(final.ToString()), 2 + _columnNames.Count, gridRow);
         }
     }
 }
